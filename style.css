@@ -5,7 +5,7 @@ body {
     background-attachment: fixed;
     margin: 0;
     padding: 0;
-    color: #333;
+    color: #ff0000;
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
@@ -44,6 +44,7 @@ header {
     margin: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    border: 2px solid #ff0000;
 }
 
 @font-face {
@@ -52,16 +53,37 @@ header {
 }
 
 .team-members1 {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(255, 255, 255);
     padding: 20px;
     margin: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     font-family: 'CoffceTower', Arial, sans-serif;
+    border: 2px solid #000000;
+    color: #000000;
+}
+
+.download-link {
+    color: #000000;
+    border: 2px solid #000000;
+}
+
+.download-link:hover {
+    background-color: #000000;
+    transform: scale(1.1);
+}
+
+.wiki {
+    color: #000000;
+    border: 2px solid #000000;
+}
+
+.wiki:hover {
+    background-color: #000000;
+    transform: scale(1.1);
 }
 
 h2 {
-    color: #ff0000;
     font-size: 28px;
     text-transform: uppercase;
     margin-bottom: 10px;
