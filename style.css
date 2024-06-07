@@ -47,20 +47,9 @@ header {
     border: 2px solid #ff0000;
 }
 
-.team-members1 {
-    background-color: rgba(255, 255, 255);
-    padding: 20px;
-    margin: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-    font-family: 'CoffceTower', Arial, sans-serif;
-    border: 2px solid #000000;
-    color: #000000;
-}
-
 .download-link {
-    color: #000000;
-    border: 2px solid #000000;
+    color: #ff0000;
+    border: 2px solid #ff0000;
 }
 
 .download-link:hover {
