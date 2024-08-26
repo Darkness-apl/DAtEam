@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="icon.ico" type="image/x-icon">
+  <title>DAtEam_showtime</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+      animation: animateBackground 10s infinite;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    #content {
+      text-align: center;
+    }
+
+    #greetingLabel, #timeLabel {
+      font-size: 170px;
+      margin-bottom: 20px;
+      opacity: 0;
+      transition: opacity 2s;
+      text-shadow: 2px 2px 10px #000;
+    }
+
+    @keyframes animateBackground {
+      0% { background-image: url('bg1.png'); }
+      20% { background-image: url('bg2.png'); }
+      40% { background-image: url('bg2.png'); }
+      60% { background-image: url('bg3.png'); }
+      80% { background-image: url('bg3.png'); }
+      100% { background-image: url('bg1.png'); }
+    }
+  </style>
+</head>
+<body oncontextmenu="return false;">
+
+<div id="content">
+  <div id="greetingLabel"></div>
+  <div id="timeLabel"></div>
+</div>
+
+<script>
+  function updateTime() {
+    var timeLabel = document.getElementById("timeLabel");
+    var greetingLabel = document.getElementById("greetingLabel");
+    var now = new Date();
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var seconds = now.getSeconds();
+
+    var timeString = "北京时间: " + formatTime(hours) + ":" + formatTime(minutes) + ":" + formatTime(seconds);
+
+    timeLabel.textContent = timeString;
+
+    if (hours >= 0 && hours < 5) {
+      greetingLabel.textContent = "凌晨好？";
+    } else if (hours < 12) {
+      greetingLabel.textContent = "上午好！";
+    } else if (hours < 14) {
+      greetingLabel.textContent = "中午好！";
+    } else if (hours < 18) {
+      greetingLabel.textContent = "下午好！";
+    } else {
+      greetingLabel.textContent = "晚上好！";
+    }
+  }
+
+  function formatTime(time) {
+    return time < 10 ? "0" + time : time;
+  }
+
+  window.onload = function() {
+    updateTime();
+    setInterval(updateTime, 1000);
+    document.getElementById("greetingLabel").style.opacity = 1;
+    document.getElementById("timeLabel").style.opacity = 1;
+  };
+</script>
+</body>
+</html>
