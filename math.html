@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>口算生成器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><text x="50" y="50" font-size="10" fill="rgba(0,0,0,0.1)">+</text></svg>') repeat,
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><text x="50" y="50" font-size="10" fill="rgba(0,0,0,0.1)">-</text></svg>') repeat,
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><text x="50" y="50" font-size="10" fill="rgba(0,0,0,0.1)">×</text></svg>') repeat,
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><text x="50" y="50" font-size="10" fill="rgba(0,0,0,0.1)">÷</text></svg>') repeat;
+            background-size: 20px 20px;
+            animation: moveSymbols 10s infinite linear;
+        }
+        @keyframes moveSymbols {
+            from { background-position: 0 0, 100px 100px, 200px 200px, 300px 300px; }
+            to { background-position: 100px 100px, 200px 200px, 300px 300px, 400px 400px; }
+        }
+        .question {
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #questions, #results {
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        #results {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>口算生成器</h1>
+
+    <label for="type">选择题型:</label>
+    <select id="type">
+        <option value="math">口算</option>
+        <option value="comparison">比大小</option>
+        <option value="multipleChoice">选择题</option>
+    </select>
+
+    <label for="num">题目数量:</label>
+    <input type="number" id="num" value="5" min="1">
+
+    <label for="difficulty">选择难度:</label>
+    <select id="difficulty">
+        <option value="easy">简单</option>
+        <option value="medium">中等</option>
+        <option value="hard">困难</option>
+    </select>
+
+    <button id="start">开始答题</button>
+
+    <div id="questions"></div>
+
+    <button id="submit" style="display: none;">提交答案</button>
+
+    <div id="results" style="display: none;">
+        <h2>答题结果</h2>
+        <div id="score"></div>
+        <div id="wrong-answers"></div>
+        <div id="speed"></div>
+    </div>
+
+    <script>
+        const startButton = document.getElementById('start');
+        const submitButton = document.getElementById('submit');
+        const questionsContainer = document.getElementById('questions');
+        const resultsDiv = document.getElementById('results');
+        const scoreDiv = document.getElementById('score');
+        const wrongAnswersDiv = document.getElementById('wrong-answers');
+        const speedDiv = document.getElementById('speed');
+
+        let questions = [];
+        let userAnswers = [];
+        let startTime;
+
+        startButton.addEventListener('click', () => {
+            const type = document.getElementById('type').value;
+            const num = parseInt(document.getElementById('num').value);
+            const difficulty = document.getElementById('difficulty').value;
+
+            questions = generateQuestions(type, num, difficulty);
+            userAnswers = Array(num).fill(null);
+            startTime = new Date();
+            displayQuestions();
+        });
+
+        function generateQuestions(type, num, difficulty) {
+            const questionsArray = [];
+            for (let i = 0; i < num; i++) {
+                let question;
+                switch (type) {
+                    case 'math':
+                        const a = getRandomInt(1, getMaxValue(difficulty));
+                        const b = getRandomInt(1, getMaxValue(difficulty));
+                        question = {
+                            question: `${a} + ${b} = ?`,
+                            answer: a + b
+                        };
+                        break;
+                    case 'comparison':
+                        const x = getRandomInt(1, getMaxValue(difficulty));
+                        const y = getRandomInt(1, getMaxValue(difficulty));
+                        question = {
+                            question: `比较: ${x} 和 ${y}`,
+                            answer: x > y ? '>' : '<'
+                        };
+                        break;
+                    case 'multipleChoice':
+                        const choiceA = getRandomInt(1, getMaxValue(difficulty));
+                        const choiceB = getRandomInt(1, getMaxValue(difficulty));
+                        const correctAnswer = choiceA + choiceB;
+                        question = {
+                            question: `选择正确的答案: ${choiceA} + ${choiceB} = ?`,
+                            answer: correctAnswer,
+                            choices: [correctAnswer, correctAnswer + 1, correctAnswer - 1].sort(() => Math.random() - 0.5)
+                        };
+                        break;
+                }
+                questionsArray.push(question);
+            }
+            return questionsArray;
+        }
+
+        function getMaxValue(difficulty) {
+            switch (difficulty) {
+                case 'easy':
+                    return 10;
+                case 'medium':
+                    return 20;
+                case 'hard':
+                    return 50;
+                default:
+                    return 10;
+            }
+        }
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function displayQuestions() {
+            questionsContainer.innerHTML = '';
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
+
+                if (q.choices) {
+                    q.choices.forEach(choice => {
+                        const choiceInput = document.createElement('input');
+                        choiceInput.type = 'radio';
+                        choiceInput.name = `question${index}`;
+                        choiceInput.value = choice;
+                        choiceInput.id = `question${index}choice${choice}`;
+                        const choiceLabel = document.createElement('label');
+                        choiceLabel.setAttribute('for', `question${index}choice${choice}`);
+                        choiceLabel.innerText = choice;
+                        questionDiv.appendChild(choiceInput);
+                        questionDiv.appendChild(choiceLabel);
+                    });
+                } else {
+                    const answerInput = document.createElement('input');
+                    answerInput.type = 'text'; // 改为文本输入，以便支持 < 和 >
+                    answerInput.id = `answer${index}`;
+                    answerInput.placeholder = '请输入答案 (< 或 >)';
+                    questionDiv.appendChild(answerInput);
+                }
+
+                questionsContainer.appendChild(questionDiv);
+            });
+
+            // Show the submit button
+            submitButton.style.display = 'block';
+        }
+
+        submitButton.addEventListener('click', () => {
+            const endTime = new Date();
+            const timeTaken = Math.round((endTime - startTime) / 1000); // 计算用时
+            let correctCount = 0;
+            const wrongAnswers = [];
+
+            let allAnswered = true;
+            questions.forEach((q, index) => {
+                const userInput = q.choices ? document.querySelector(`input[name="question${index}"]:checked`) : document.getElementById(`answer${index}`);
+                const userAnswer = userInput ? (q.choices ? parseInt(userInput.value) : userInput.value) : null;
+
+                if (!userAnswer) {
+                    allAnswered = false;
+                }
+
+                if (userAnswer === q.answer.toString()) {
+                    correctCount++;
+                } else {
+                    wrongAnswers.push(`${index + 1}: ${q.question} 答案是 ${q.answer}，你回答 ${userAnswer}`);
+                }
+            });
+
+            if (!allAnswered) {
+                alert('请回答所有问题后再提交！');
+                return;
+            }
+
+            // Display results
+            resultsDiv.style.display = 'block';
+            scoreDiv.innerText = `答对题目数量: ${correctCount}/${questions.length}`;
+            wrongAnswersDiv.innerText = wrongAnswers.length ? `错题: ${wrongAnswers.join(', ')}` : '没有错题';
+            speedDiv.innerText = `答题速度: ${timeTaken}秒`;
+        });
+    </script>
+</body>
+</html>
