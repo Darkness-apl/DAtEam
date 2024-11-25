@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>调查问卷</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .button {
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button a {
+            color: white;
+            text-decoration: none;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        #results {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <button class="button"><a href="http://dateam.line.pm">←</a></button>
+        <h1>调查问卷</h1>
+        <p>市场调研问卷（行业从业者）</p>
+        <p>尊敬的行业从业者，感谢您抽出宝贵时间参与本次调查。您的反馈将帮助我们更好地理解市场趋势及需求。</p>
+
+        <form id="surveyForm">
+            <div class="question">
+                <label>1. 您所在的行业是？</label><br>
+                <input type="checkbox" name="industry" value="IT/科技"> IT/科技<br>
+                <input type="checkbox" name="industry" value="制造业"> 制造业<br>
+                <input type="checkbox" name="industry" value="金融"> 金融<br>
+                <input type="checkbox" name="industry" value="医疗健康"> 医疗健康<br>
+                <input type="checkbox" name="industry" value="教育培训"> 教育培训<br>
+                <input type="checkbox" name="industry" value="零售/电商"> 零售/电商<br>
+                <input type="checkbox" name="industry" value="餐饮/酒店"> 餐饮/酒店<br>
+                <input type="checkbox" name="industry" value="物流/运输"> 物流/运输<br>
+                <input type="checkbox" name="industry" value="其他（请注明）"> 其他（请注明）：_________<br>
+            </div>
+
+            <div class="question">
+                <label>2. 您所在的企业规模是？</label><br>
+                <input type="radio" name="companySize" value="小型企业（1-50人）"> 小型企业（1-50人）<br>
+                <input type="radio" name="companySize" value="中型企业（51-200人）"> 中型企业（51-200人）<br>
+                <input type="radio" name="companySize" value="大型企业（200人以上）"> 大型企业（200人以上）<br>
+            </div>
+
+            <div class="question">
+                <label>3. 您最关注的市场趋势有哪些？（可多选）</label><br>
+                <input type="checkbox" name="marketTrends" value="技术创新"> 技术创新<br>
+                <input type="checkbox" name="marketTrends" value="市场竞争加剧"> 市场竞争加剧<br>
+                <input type="checkbox" name="marketTrends" value="消费者需求变化"> 消费者需求变化<br>
+                <input type="checkbox" name="marketTrends" value="政策与法规变化"> 政策与法规变化<br>
+                <input type="checkbox" name="marketTrends" value="行业内并购或整合"> 行业内并购或整合<br>
+                <input type="checkbox" name="marketTrends" value="环保与可持续发展"> 环保与可持续发展<br>
+                <input type="checkbox" name="marketTrends" value="自动化与人工智能应用"> 自动化与人工智能应用<br>
+                <input type="checkbox" name="marketTrends" value="其他（请注明）"> 其他（请注明）：_________<br>
+            </div>
+
+            <div class="question">
+                <label>4. 您认为行业的主要挑战是什么？（可多选）</label><br>
+                <input type="checkbox" name="challenges" value="成本压力"> 成本压力<br>
+                <input type="checkbox" name="challenges" value="人才短缺"> 人才短缺<br>
+                <input type="checkbox" name="challenges" value="法规限制"> 法规限制<br>
+                <input type="checkbox" name="challenges" value="市场需求不确定"> 市场需求不确定<br>
+                <input type="checkbox" name="challenges" value="技术更新速度快"> 技术更新速度快<br>
+                <input type="checkbox" name="challenges" value="供应链问题"> 供应链问题<br>
+                <input type="checkbox" name="challenges" value="竞争激烈"> 竞争激烈<br>
+                <input type="checkbox" name="challenges" value="其他（请注明）"> 其他（请注明）：_________<br>
+            </div>
+
+            <div class="question">
+                <label>5. 您所在的行业在未来3年内的主要发展方向是？（可多选）</label><br>
+                <input type="checkbox" name="developmentDirection" value="数字化转型"> 数字化转型<br>
+                <input type="checkbox" name="developmentDirection" value="绿色环保与可持续发展"> 绿色环保与可持续发展<br>
+                <input type="checkbox" name="developmentDirection" value="全球化扩展"> 全球化扩展<br>
+                <input type="checkbox" name="developmentDirection" value="客户体验提升"> 客户体验提升<br>
+                <input type="checkbox" name="developmentDirection" value="新产品/服务开发"> 新产品/服务开发<br>
+                <input type="checkbox" name="developmentDirection" value="提高效率和降低成本"> 提高效率和降低成本<br>
+                <input type="checkbox" name="developmentDirection" value="人才培养与管理优化"> 人才培养与管理优化<br>
+                <input type="checkbox" name="developmentDirection" value="其他（请注明）"> 其他（请注明）：_________<br>
+            </div>
+
+            <div class="question">
+                <label>6. 您对于未来行业发展的乐观程度如何？</label><br>
+                <input type="radio" name="optimismLevel" value="非常乐观"> 非常乐观<br>
+                <input type="radio" name="optimismLevel" value="有些乐观"> 有些乐观<br>
+                <input type="radio" name="optimismLevel" value="中立"> 中立<br>
+                <input type="radio" name="optimismLevel" value="略感悲观"> 略感悲观<br>
+                <input type="radio" name="optimismLevel" value="非常悲观"> 非常悲观<br>
+            </div>
+
+            <div class="question">
+                <label>7. 您认为目前市场上最重要的创新趋势是什么？（可多选）</label><br>
+                <input type="checkbox" name="innovationTrends" value="人工智能（AI）技术"> 人工智能（AI）技术<br>
+                <input type="checkbox" name="innovationTrends" value="物联网（IoT）"> 物联网（IoT）<br>
+                <input type="checkbox" name="innovationTrends" value="大数据分析"> 大数据分析<br>
+                <input type="checkbox" name="innovationTrends" value="云计算"> 云计算<br>
+                <input type="checkbox" name="innovationTrends" value="5G技术"> 5G技术<br>
+                <input type="checkbox" name="innovationTrends" value="区块链"> 区块链<br>
+                <input type="checkbox" name="innovationTrends" value="虚拟现实（VR）/增强现实（AR）"> 虚拟现实（VR）/增强现实（AR）<br>
+                <input type="checkbox" name="innovationTrends" value="其他（请注明）"> 其他（请注明）：_________<br>
+            </div>
+
+            <div class="question">
+                <label>8. 您对您所在行业未来的投资意愿如何？</label><br>
+                <input type="radio" name="investmentWillingness" value="高"> 高<br>
+                <input type="radio" name="investmentWillingness" value="中等"> 中等<br>
+                <input type="radio" name="investmentWillingness" value="低"> 低<br>
+                <input type="radio" name="investmentWillingness" value="不确定"> 不确定<br>
+            </div>
+
+            <div class="question">
+                <label>9. 您认为在您的行业中，以下哪些因素对企业发展最为关键？（可多选）</label><br>
+                <input type="checkbox" name="keyFactors" value="技术创新"> 技术创新<br>
+                <input type="checkbox" name="keyFactors" value="市场营销"> 市场营销<br>
+                <input type="checkbox" name="keyFactors" value="品牌影响力"> 品牌影响力<br>
+                <input type="checkbox" name="keyFactors" value="客户关系管理"> 客户关系管理<br>
+                <input type="checkbox" name="keyFactors" value="供应链管理"> 供应链管理<br>
+                <input type="checkbox" name="keyFactors" value="团队建设与人才培养"> 团队建设与人才培养<br>
+                <input type="checkbox" name="keyFactors" value="财务健康与资金管理"> 财务健康与资金管理<br>
+                <input type="checkbox" name="keyFactors" value="其他（请注明）"> 其他（请注明）：_________<br>
+            </div>
+
+            <button type="submit" class="button">提交</button>
+        </form>
+        
+        <div id="results"></div>
+    </div>
+
+    <script>
+        document.getElementById('surveyForm').onsubmit = function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const answers = {};
+            formData.forEach((value, key) => {
+                if (!answers[key]) {
+                    answers[key] = [];
+                }
+                answers[key].push(value);
+            });
+
+            fetch('http://185.199.109.153/save-answers', {
+                method: 'POST',
+                body: JSON.stringify(answers),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('results').innerHTML = `
+                    感谢您的参与！<br>
+                    大多数选择：${data.mostChosen}<br>
+                    少数选择：${data.leastChosen}
+                `;
+            })
+            .catch(error => {
+                console.error('错误:', error);
+                document.getElementById('results').innerHTML = '提交失败，请重试。';
+            });
+        };
+    </script>
+</body>
+</html>
