@@ -153,6 +153,63 @@
             font-size: 2em;
         }
     }
+
+    .favorite-websites {
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+        width: 30%;
+        max-width: 100%;
+        transition: width 0.5s ease;
+        will-change: width;
+    }
+    .favorite-websites h2 {
+        font-family: 'Orbitron', sans-serif;
+        color: #4CAF50;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        margin-bottom: 20px;
+    }
+    .favorite-websites.open {
+        width: 100%;
+    }
+    .favorite-websites .website-item {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .favorite-websites .website-item a {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .favorite-websites .website-preview {
+        width: 100%;
+        height: 200px;
+        border: none;
+    }
+    #toggleButton {
+        text-align: center;
+        cursor: pointer;
+        color: #4CAF50;
+        font-weight: bold;
+        transition: color 0.3s ease, text-shadow 0.3s ease;
+        will-change: color, text-shadow;
+    }
+    #toggleButton:hover {
+        color: #fff;
+        text-shadow: 0 0 10px rgba(76, 175, 80, 0.8);
+    }
+    #websiteList {
+        display: none;
+        transition: opacity 0.5s ease;
+        will-change: opacity;
+    }
+    #favoriteSection.open #websiteList {
+        display: block;
+        opacity: 1;
+    }
 </style>
 </head>
 <body oncontextmenu="return false;">
@@ -168,7 +225,7 @@
   </div>
 
   <section class="team-members">
-    <h2>Darknessapl - 唯一成员</h2>
+    <h2>Darknessapl - 唯一一</h2>
     <p>开发者 GitHub 主页：</p>
     <ul>
         <li><a href="https://github.com/Darkness-apl" target="_blank" rel="noopener noreferrer">GitHub 名片</a></li>
@@ -178,9 +235,28 @@
         <li><a href="https://b23.tv/ILHlhJ9" target="_blank" rel="noopener noreferrer">哔哩哔哩名片</a></li>
     </ul>
   </section>
+
+  <section id="favoriteSection" class="favorite-websites">
+    <h2>我收藏的那些网页</h2>
+    <div id="toggleButton">查看</div>
+    <div id="websiteList">
+      <div class="website-item">
+        <a href="byrutgame.org" target="_blank" rel="noopener noreferrer">还是白嫖大佬?</a>
+        <iframe class="website-preview" src="byrutgame.org"></iframe>
+      </div>
+      <div class="website-item">
+        <a href="itch.io" target="_blank" rel="noopener noreferrer">想玩独立游戏必收藏!</a>
+        <iframe class="website-preview" src="itch.io"></iframe>
+      </div>
+        <div class="website-item">
+        <a href="onlineconvertfree.com/zh" target="_blank" rel="noopener noreferrer">包实用的老弟😜</a>
+        <iframe class="website-preview" src="onlineconvertfree.com/zh"></iframe>
+      </div>
+    </div>
+  </section>
+
 </main>
 
-<!-- Particles -->
 <div class="particle" style="top: 10%; left: 20%; animation-delay: 0s;"></div>
 <div class="particle" style="top: 30%; left: 40%; animation-delay: 1s;"></div>
 <div class="particle" style="top: 50%; left: 60%; animation-delay: 2s;"></div>
@@ -222,17 +298,28 @@
     setInterval(updateTime, 1000);
     document.getElementById("greetingLabel").style.opacity = 1;
     document.getElementById("timeLabel").style.opacity = 1;
+
+    for (let i = 0; i < 100; i++) {
+      let particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + 'vw';
+      particle.style.top = Math.random() * 100 + 'vh';
+      particle.style.animationDelay = Math.random() * 5 + 's';
+      document.body.appendChild(particle);
+    }
   };
 
-  // Create particles
-  for (let i = 0; i < 100; i++) {
-    let particle = document.createElement('div');
-    particle.className = 'particle';
-    particle.style.left = Math.random() * 100 + 'vw';
-    particle.style.top = Math.random() * 100 + 'vh';
-    particle.style.animationDelay = Math.random() * 5 + 's';
-    document.body.appendChild(particle);
-  }
+document.getElementById('toggleButton').addEventListener('click', function() {
+    var websitesSection = document.getElementById('favoriteSection');
+    var websiteList = document.getElementById('websiteList');
+    if (websitesSection.classList.contains('open')) {
+      websitesSection.classList.remove('open');
+      websiteList.style.display = 'none';
+    } else {
+      websitesSection.classList.add('open');
+      websiteList.style.display = 'block';
+    }
+  });
 </script>
 </body>
 </html>
